@@ -1,0 +1,43 @@
+name: Trading Morning Brief
+
+on:
+  schedule:
+    # 매일 KST 08:00 = UTC 23:00 (전날)
+    - cron: '0 23 * * *'
+  workflow_dispatch:  # 수동 실행 버튼
+
+permissions:
+  contents: write  # GitHub Pages 배포용
+
+jobs:
+  morning-brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install anthropic yfinance pytz
+
+      - name: Run analysis
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python analyze.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          commit_message: "Brief: ${{ github.run_id }}"
