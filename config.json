@@ -1,0 +1,181 @@
+{
+  "assets": [
+    {
+      "name": "Bitcoin",
+      "ticker": "BTC-USD",
+      "type": "crypto",
+      "levels": {
+        "support": [90000, 85000, 80000],
+        "resistance": [100000, 105000, 110000]
+      },
+      "notes": "주요 사이클 고점/저점 기준"
+    },
+    {
+      "name": "Ethereum",
+      "ticker": "ETH-USD",
+      "type": "crypto",
+      "levels": {
+        "support": [2800, 2500, 2200],
+        "resistance": [3500, 4000, 4500]
+      },
+      "notes": ""
+    },
+    {
+      "name": "PEPE",
+      "ticker": "PEPE-USD",
+      "type": "crypto",
+      "levels": {
+        "support": [0.000008, 0.000006],
+        "resistance": [0.000015, 0.000020]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Solana",
+      "ticker": "SOL-USD",
+      "type": "crypto",
+      "levels": {
+        "support": [120, 100, 85],
+        "resistance": [180, 200, 220]
+      },
+      "notes": ""
+    },
+    {
+      "name": "XRP",
+      "ticker": "XRP-USD",
+      "type": "crypto",
+      "levels": {
+        "support": [1.8, 1.5, 1.2],
+        "resistance": [2.5, 3.0, 3.5]
+      },
+      "notes": ""
+    },
+    {
+      "name": "삼성전자",
+      "ticker": "005930.KS",
+      "type": "korean_stock",
+      "levels": {
+        "support": [55000, 52000, 48000],
+        "resistance": [65000, 70000, 75000]
+      },
+      "notes": ""
+    },
+    {
+      "name": "SK하이닉스",
+      "ticker": "000660.KS",
+      "type": "korean_stock",
+      "levels": {
+        "support": [140000, 130000, 120000],
+        "resistance": [180000, 200000, 220000]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Apple",
+      "ticker": "AAPL",
+      "type": "us_stock",
+      "levels": {
+        "support": [180, 170, 160],
+        "resistance": [210, 220, 230]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Tesla",
+      "ticker": "TSLA",
+      "type": "us_stock",
+      "levels": {
+        "support": [200, 180, 160],
+        "resistance": [280, 300, 350]
+      },
+      "notes": ""
+    },
+    {
+      "name": "NVIDIA",
+      "ticker": "NVDA",
+      "type": "us_stock",
+      "levels": {
+        "support": [800, 750, 700],
+        "resistance": [950, 1000, 1100]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Palantir",
+      "ticker": "PLTR",
+      "type": "us_stock",
+      "levels": {
+        "support": [18, 15, 12],
+        "resistance": [28, 32, 38]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Meta",
+      "ticker": "META",
+      "type": "us_stock",
+      "levels": {
+        "support": [450, 420, 380],
+        "resistance": [550, 600, 650]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Microsoft",
+      "ticker": "MSFT",
+      "type": "us_stock",
+      "levels": {
+        "support": [380, 360, 340],
+        "resistance": [440, 460, 480]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Nasdaq Futures (NQ1!)",
+      "ticker": "NQ=F",
+      "type": "futures",
+      "levels": {
+        "support": [18000, 17500, 17000],
+        "resistance": [20000, 21000, 22000]
+      },
+      "notes": "나스닥100 선물"
+    },
+    {
+      "name": "Gold (XAUUSD)",
+      "ticker": "GC=F",
+      "type": "commodity",
+      "levels": {
+        "support": [2300, 2200, 2100],
+        "resistance": [2500, 2600, 2700]
+      },
+      "notes": ""
+    },
+    {
+      "name": "Silver",
+      "ticker": "SI=F",
+      "type": "commodity",
+      "levels": {
+        "support": [28, 26, 24],
+        "resistance": [33, 36, 40]
+      },
+      "notes": ""
+    },
+    {
+      "name": "USD/KRW",
+      "ticker": "USDKRW=X",
+      "type": "forex",
+      "levels": {
+        "support": [1300, 1280, 1250],
+        "resistance": [1380, 1400, 1430]
+      },
+      "notes": ""
+    }
+  ],
+  "settings": {
+    "proximity_pct": 1.5,
+    "timezone": "Asia/Seoul",
+    "report_time": "08:00",
+    "email_to": "your@email.com",
+    "email_from": "your_gmail@gmail.com"
+  }
+}

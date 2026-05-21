@@ -1,0 +1,68 @@
+//@version=5
+indicator("Morning Brief — Level Alerts", overlay=true, max_lines_count=50)
+
+// ── 설정 ──────────────────────────────────────────────────
+var string WEBHOOK_URL = ""  // TradingView Pro+ 이상에서 Webhook URL 입력
+
+proximity_pct = input.float(1.5, "근접 판단 기준 (%)", minval=0.1, maxval=5.0)
+
+// ── 지지/저항 레벨 입력 (이 종목에 맞게 수정) ──────────────
+// 예: BTC 기준
+r1 = input.float(100000, "저항 1")
+r2 = input.float(105000, "저항 2")
+r3 = input.float(110000, "저항 3")
+s1 = input.float(90000,  "지지 1")
+s2 = input.float(85000,  "지지 2")
+s3 = input.float(80000,  "지지 3")
+
+// ── 레벨 시각화 ───────────────────────────────────────────
+var line ln_r1 = line.new(bar_index, r1, bar_index+1, r1, color=color.new(color.red, 40), width=1, style=line.style_dashed)
+var line ln_r2 = line.new(bar_index, r2, bar_index+1, r2, color=color.new(color.red, 60), width=1, style=line.style_dashed)
+var line ln_r3 = line.new(bar_index, r3, bar_index+1, r3, color=color.new(color.red, 70), width=1, style=line.style_dotted)
+var line ln_s1 = line.new(bar_index, s1, bar_index+1, s1, color=color.new(color.green, 40), width=1, style=line.style_dashed)
+var line ln_s2 = line.new(bar_index, s2, bar_index+1, s2, color=color.new(color.green, 60), width=1, style=line.style_dashed)
+var line ln_s3 = line.new(bar_index, s3, bar_index+1, s3, color=color.new(color.green, 70), width=1, style=line.style_dotted)
+
+if barstate.islast
+    line.set_x2(ln_r1, bar_index + 20)
+    line.set_x2(ln_r2, bar_index + 20)
+    line.set_x2(ln_r3, bar_index + 20)
+    line.set_x2(ln_s1, bar_index + 20)
+    line.set_x2(ln_s2, bar_index + 20)
+    line.set_x2(ln_s3, bar_index + 20)
+
+// ── 근접 판단 함수 ─────────────────────────────────────────
+f_near(price, level) =>
+    math.abs(price - level) / level * 100 <= proximity_pct
+
+price = close
+
+// ── 알림 로직 ──────────────────────────────────────────────
+near_r1 = f_near(price, r1)
+near_r2 = f_near(price, r2)
+near_r3 = f_near(price, r3)
+near_s1 = f_near(price, s1)
+near_s2 = f_near(price, s2)
+near_s3 = f_near(price, s3)
+
+any_near = near_r1 or near_r2 or near_r3 or near_s1 or near_s2 or near_s3
+
+// 레벨 근접 시 배경 하이라이트
+bgcolor(near_r1 or near_r2 or near_r3 ? color.new(color.red, 90) : na)
+bgcolor(near_s1 or near_s2 or near_s3 ? color.new(color.green, 90) : na)
+
+// 알림 조건
+alertcondition(near_r1, "저항1 근접", "⚠️ 저항선 1 ({{ticker}}) 근접! 현재가: {{close}}")
+alertcondition(near_r2, "저항2 근접", "⚠️ 저항선 2 ({{ticker}}) 근접! 현재가: {{close}}")
+alertcondition(near_s1, "지지1 근접", "✅ 지지선 1 ({{ticker}}) 근접! 현재가: {{close}}")
+alertcondition(near_s2, "지지2 근접", "✅ 지지선 2 ({{ticker}}) 근접! 현재가: {{close}}")
+alertcondition(any_near, "레벨 근접 (통합)", "🔔 레벨 근접: {{ticker}} @ {{close}} | {{time}}")
+
+// 라벨 표시
+if barstate.islast and any_near
+    label.new(bar_index, high * 1.001,
+      "⚡ LEVEL ALERT",
+      color=color.orange,
+      textcolor=color.white,
+      style=label.style_label_down,
+      size=size.small)
